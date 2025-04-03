@@ -10,7 +10,6 @@ editor_options:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 require("knitr")
-opts_knit$set(root.dir = "~/path/to/folder/")
 ```
 
 Bellabeat, founded in 2013 by Urška Sršen and Sando Mur, is a tech-driven wellness company specializing in health-focused smart products designed to empower women. Tracking activity, sleep, stress, and reproductive health has enabled women to make informed decisions about their well-being.
@@ -212,10 +211,12 @@ By segmenting participants based on the activity metrics, I have created categor
 I further analyzed when people are most active during the week. The process involves getting the day of week from the ActivityDate and create a bar plot to visualize the frequency by the day of week.
 
 ```{r}
-# Get day of week from the ActivityDate
-activity$day <- weekdays(activity$ActivityDate)
+Sys.setlocale("LC_TIME", "C")
 
-activity$day_of_week <- factor(activity$day,
+# Get day of week from the ActivityDate
+activity$day_of_week <- weekdays(as.Date(activity$ActivityDate))
+
+activity$day_of_week <- factor(activity$day_of_week,
   levels = c("Sunday", "Monday", 
   "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
 ```
